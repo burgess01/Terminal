@@ -1,0 +1,172 @@
+setup: |
+  echo "Done installing project dependencies!"
+---
+
+# Reminder for ^^^:
+# All commands executed in the setup block are done in a
+# one-by-one fashion from the current working directory. This means
+# that there is no history associated with running the commands and
+# thus multiple commands must be run in a single chain.
+
+# perform checks on a file
+- project/pylang/pyprompt.py:
+    - description: Ensure that the pyprompt.py file exists in project/pylang
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for pyprompt.py
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Use a print statement in pyprompt.py for the name of the program
+      check: MatchFileFragment
+      options:
+        fragment: pyprompt
+        count: 1
+        exact: true
+    - description: Use a print statement in pyprompt.py for the designated command not found message
+      check: MatchFileFragment
+      options:
+        fragment: Command not found
+        count: 1
+        exact: false
+    - description: Use a print statement in pyprompt.py for the designated file not valid message
+      check: MatchFileFragment
+      options:
+        fragment: is not valid
+        count: 1
+        exact: false
+    - description: Create a sufficient number of docstring (i.e., multiple-line) comments in main.py
+      check: CountMultipleLineComments
+      options:
+        language: "Python"
+        count: 3
+        exact: false
+    - description: Create a sufficient number of single-line comments in main.py
+      check: CountSingleLineComments
+      options:
+        language: "Python"
+        count: 20
+        exact: false
+
+# run a command
+- description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test one)
+  command: python project/pylang/pyprompt.py < commands/test_one.cmd
+
+# run the program and confirm correct number of lines in the output
+- description: Run the project/pylang/pyprompt.py program and ensure that it yields output (test one)
+  check: CountCommandOutput
+  options:
+    command: python project/pylang/pyprompt.py < commands/test_one.cmd
+    count: 2
+    exact: true
+
+# run a command
+- description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test two)
+  command: python project/pylang/pyprompt.py < commands/test_two.cmd
+
+# run the program and confirm correct number of lines in the output
+- description: Run the project/pylang/pyprompt.py program and ensure that it yields output (test two)
+  check: CountCommandOutput
+  options:
+    command: python project/pylang/pyprompt.py < commands/test_two.cmd
+    count: 4
+    exact: true
+
+# run a command
+- description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test three)
+  command: python project/pylang/pyprompt.py < commands/test_three.cmd
+
+# run the program and confirm correct number of lines in the output
+- description: Run the project/pylang/pyprompt.py program and ensure that it yields output (test three)
+  check: CountCommandOutput
+  options:
+    command: python project/pylang/pyprompt.py < commands/test_three.cmd
+    count: 15
+    exact: true
+
+# run a command
+- description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test four)
+  command: python project/pylang/pyprompt.py < commands/test_four.cmd
+
+# run the program and confirm correct number of lines in the output
+- description: Run the project/pylang/pyprompt.py program and ensure that it yields output (test four)
+  check: CountCommandOutput
+  options:
+    command: python project/pylang/pyprompt.py < commands/test_four.cmd
+    count: 21
+    exact: true
+
+# run a command
+- description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test five)
+  command: python project/pylang/pyprompt.py < commands/test_five.cmd
+
+# run the program and confirm correct number of lines in the output
+- description: Run the project/pylang/pyprompt.py program and ensure that it yields output (test five)
+  check: CountCommandOutput
+  options:
+    command: python project/pylang/pyprompt.py < commands/test_five.cmd
+    count: 39
+    exact: true
+
+# run a command
+- description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test six)
+  command: python project/pylang/pyprompt.py < commands/test_six.cmd
+
+# run the program and confirm correct number of lines in the output
+- description: Run the project/pylang/pyprompt.py program and ensure that it yields output (test six)
+  check: CountCommandOutput
+  options:
+    command: python project/pylang/pyprompt.py < commands/test_six.cmd
+    count: 52
+    exact: true
+
+# run a command
+- description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test seven)
+  command: python project/pylang/pyprompt.py < commands/test_seven.cmd
+
+# run the program and confirm correct number of lines in the output
+- description: Run the project/pylang/pyprompt.py program and ensure that it yields output (test seven)
+  check: CountCommandOutput
+  options:
+    command: python project/pylang/pyprompt.py < commands/test_seven.cmd
+    count: 54
+    exact: true
+
+# perform checks on a file
+- writing/reflection.md:
+    - description: Ensure that the reflection.md file exists in the writing/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for the reflection
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Delete the 'Add Your Name Here' prompt in the reflection file
+      check: MatchFileFragment
+      options:
+        fragment: "Add Your Name Here"
+        count: 0
+        exact: true
+    - description: Write a minimum of 500 meaningful words in the reflection
+      check: CountFileWords
+      options:
+        count: 500
+        exact: false
+    - check: CountMarkdownTags
+      options:
+        tag: heading
+        count: 10
+        exact: false
+    - check: CountMarkdownTags
+      options:
+        tag: code_block
+        count: 2
+        exact: false
+
+# count number of commits in the GitHub repository
+- description: Have at least a specific minimum number of 10 commits in repository
+  check: CountCommits
+  options:
+    count: 10
