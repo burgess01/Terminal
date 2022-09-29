@@ -39,3 +39,17 @@ def ls():
 
 
 # cd function
+def cd(navigation):
+    """Move the directory; support . and .."""
+    try:
+        origDir = os.getcwd()
+        os.chdir(navigation)
+        return 0
+    except:
+        # if the directory is not real
+        print(navigation, " is not valid")
+        # return failing return code
+        return 1
+
+
+# exit function
