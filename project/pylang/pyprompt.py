@@ -88,6 +88,23 @@ def main():
                     returnCode = 1
                     exit(returnCode)
         else:
+            # if in else this means it was ran in the command line
+            if sys.argv[1] == "pwd":
+                print(">pwd")
+                returnCode = pwd()
+            elif sys.argv[1] == "ls":
+                print(">ls")
+                returnCode = ls()
+            elif sys.argv[1] == "cd":
+                print(">cd")
+                returnCode = cd(lineArgs[2])
+            elif sys.argv[1] == "exit":
+                print(">exit")
+                exit(returnCode)
+            else:
+                print("Command not found")
+                returnCode = 1
+                exit(returnCode)
     except KeyboardInterrupt:
         # make sure a Keyboard Interrupt does not crash code
         traceback.print_exc()
