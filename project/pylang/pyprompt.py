@@ -60,6 +60,11 @@ def exit(returnCode):
 
 
 # main function
+def main():
+    try:
+        print("pyprompt 0.1.0\n")
+
+        if len(sys.argv) == 1:
     except KeyboardInterrupt:
         # make sure a Keyboard Interrupt does not crash code
         traceback.print_exc()
