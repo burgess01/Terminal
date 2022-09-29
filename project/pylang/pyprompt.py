@@ -60,3 +60,11 @@ def exit(returnCode):
 
 
 # main function
+    except KeyboardInterrupt:
+        # make sure a Keyboard Interrupt does not crash code
+        traceback.print_exc()
+        returnCode = 1
+        exit(returnCode)
+
+
+main()
