@@ -82,8 +82,8 @@ setup: |
   check: CountCommandOutput
   options:
     command: python project/pylang/pyprompt.py < commands/test_three.cmd
-    count: 15
-    exact: true
+    count: 14
+    exact: false
 
 # run a command
 - description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test four)
@@ -94,8 +94,8 @@ setup: |
   check: CountCommandOutput
   options:
     command: python project/pylang/pyprompt.py < commands/test_four.cmd
-    count: 21
-    exact: true
+    count: 20
+    exact: false
 
 # run a command
 - description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test five)
@@ -106,8 +106,8 @@ setup: |
   check: CountCommandOutput
   options:
     command: python project/pylang/pyprompt.py < commands/test_five.cmd
-    count: 39
-    exact: true
+    count: 30
+    exact: false
 
 # run a command
 - description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test six)
@@ -118,8 +118,8 @@ setup: |
   check: CountCommandOutput
   options:
     command: python project/pylang/pyprompt.py < commands/test_six.cmd
-    count: 52
-    exact: true
+    count: 40
+    exact: false
 
 # run a command
 - description: Run the project/pylang/pyprompt.py program and ensure it does not crash (test seven)
@@ -130,8 +130,8 @@ setup: |
   check: CountCommandOutput
   options:
     command: python project/pylang/pyprompt.py < commands/test_seven.cmd
-    count: 54
-    exact: true
+    count: 40
+    exact: false
 
 # perform checks on a file
 - writing/reflection.md:
