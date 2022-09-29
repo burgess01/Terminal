@@ -65,6 +65,29 @@ def main():
         print("pyprompt 0.1.0\n")
 
         if len(sys.argv) == 1:
+            # use fileinput/sys.stdin to take in input
+            for line in fileinput.input():
+                # use attrs to take input and feed into correct function
+                lineArgs = line.split()
+                # first line is command
+                returnCode = 0
+                if lineArgs[0] == "pwd":
+                    print(">pwd")
+                    returnCode = pwd()
+                elif lineArgs[0] == "ls":
+                    print(">ls")
+                    returnCode = ls()
+                elif lineArgs[0] == "cd":
+                    print(">cd")
+                    returnCode = cd(lineArgs[1])
+                elif lineArgs[0] == "exit":
+                    print(">exit")
+                    exit(returnCode)
+                else:
+                    print("Command not found")
+                    returnCode = 1
+                    exit(returnCode)
+        else:
     except KeyboardInterrupt:
         # make sure a Keyboard Interrupt does not crash code
         traceback.print_exc()
