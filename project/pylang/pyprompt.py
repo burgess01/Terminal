@@ -22,3 +22,20 @@ def pwd():
 
 
 # ls function
+def ls():
+    """Print the one or more files and directories that are inside of the current working directory"""
+    # set the shell's return code to a zero if able to grab any
+    try:
+        obj = os.scandir(os.getcwd())
+        for item in obj:
+            if item.is_dir() or item.is_file():
+                # if the line is really what we are looking for
+                # print out on the terminal
+                print(os.getcwd() + "/" + item.name)
+        return 0
+    except:
+        # return failing return code
+        return 1
+
+
+# cd function
