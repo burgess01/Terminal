@@ -53,3 +53,10 @@ def cd(navigation):
 
 
 # exit function
+def exit(returnCode):
+    """Exit the shell and return the correct exit code; non-zero code will be zero if exit works right"""
+
+    sys.exit(returnCode)
+
+
+# main function
