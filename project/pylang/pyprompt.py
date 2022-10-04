@@ -85,8 +85,7 @@ def main():
                     command, pathName = line.split()
                     returnCode = cd(pathName)
                 elif line == "exit":
-                    # Ask Kapfhammer if true/false is required or not
-                    # if not need another solution
+                    # Assumes file does not require a True/False
                     listLen = len(lineArgs) - 1
                     if lineArgs.index(line) == listLen:
                         # if exit is the last line in the file (no true/false)
