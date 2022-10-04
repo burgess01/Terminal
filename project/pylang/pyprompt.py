@@ -70,6 +70,7 @@ def main():
             for line in fileinput.input():
                 # use attrs to take input and feed into correct function
                 lineArgs = line.split()
+                print(lineArgs)
                 # first line is command
                 returnCode = 0
                 if lineArgs[0] == "pwd":
@@ -82,8 +83,21 @@ def main():
                     print(">cd")
                     returnCode = cd(lineArgs[1])
                 elif lineArgs[0] == "exit":
+                    # Ask Kapfhammer if true/false is required or not
+                    # if not need another solution
+                    # listLen = len(lineArgs) - 1
+                    # if lineArgs.index
                     print(">exit")
                     exit(returnCode)
+                elif lineArgs[0] == "True":
+                    # if True, build should be passing
+                    # do nothing, just exit
+                    exit(returnCode)
+                elif lineArgs[0] == "False":
+                    # if False, build should be failing
+                    # if exit code 1, make exit code 0
+                    # if exit code 0, make exit code 1
+                    pass
                 else:
                     print("Command not found")
                     returnCode = 1
