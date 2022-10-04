@@ -1,6 +1,7 @@
 import fileinput
 import os
 import sys
+import stat
 import traceback
 
 # implement a command shell that provides all of the features
@@ -64,8 +65,8 @@ def main():
     try:
         print("pyprompt 0.1.0\n")
 
-        if len(sys.argv) == 1:
-            # use fileinput/sys.stdin to take in input
+        mode = os.fstat(0).st_mode
+        if stat.S_ISREG(mode):
             for line in fileinput.input():
                 # use attrs to take input and feed into correct function
                 lineArgs = line.split()
@@ -89,22 +90,21 @@ def main():
                     exit(returnCode)
         else:
             # if in else this means it was ran in the command line
-            if sys.argv[1] == "pwd":
-                print(">pwd")
-                returnCode = pwd()
-            elif sys.argv[1] == "ls":
-                print(">ls")
-                returnCode = ls()
-            elif sys.argv[1] == "cd":
-                print(">cd")
-                returnCode = cd(lineArgs[2])
-            elif sys.argv[1] == "exit":
-                print(">exit")
-                exit(returnCode)
-            else:
-                print("Command not found")
-                returnCode = 1
-                exit(returnCode)
+            stillRunning = True
+            while stillRunning == True:
+                commandInput = input(">")
+                if commandInput == "pwd":
+                    returnCode = pwd()
+                elif commandInput == "ls":
+                    returnCode = ls()
+                elif "cd " in commandInput:
+                    command, pathName = commandInput.split()
+                    returnCode = cd(pathName)
+                elif commandInput == "exit":
+                    exit(returnCode)
+                else:
+                    print("Command not found")
+                    returnCode = 1
     except KeyboardInterrupt:
         # make sure a Keyboard Interrupt does not crash code
         traceback.print_exc()
