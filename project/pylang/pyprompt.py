@@ -67,37 +67,46 @@ def main():
 
         mode = os.fstat(0).st_mode
         if stat.S_ISREG(mode):
+            lineArgs = []
             for line in fileinput.input():
-                # use attrs to take input and feed into correct function
-                lineArgs = line.split()
-                print(lineArgs)
-                # first line is command
+                lineArgs.append(line.strip())
+            for line in lineArgs:
+                # iterate through each line
+                # get command and feed into that function
                 returnCode = 0
-                if lineArgs[0] == "pwd":
+                if line == "pwd":
                     print(">pwd")
                     returnCode = pwd()
-                elif lineArgs[0] == "ls":
+                elif line == "ls":
                     print(">ls")
                     returnCode = ls()
-                elif lineArgs[0] == "cd":
+                elif "cd" in line:
                     print(">cd")
-                    returnCode = cd(lineArgs[1])
-                elif lineArgs[0] == "exit":
+                    command, pathName = line.split()
+                    returnCode = cd(pathName)
+                elif line == "exit":
                     # Ask Kapfhammer if true/false is required or not
                     # if not need another solution
-                    # listLen = len(lineArgs) - 1
-                    # if lineArgs.index
-                    print(">exit")
-                    exit(returnCode)
-                elif lineArgs[0] == "True":
+                    listLen = len(lineArgs) - 1
+                    if lineArgs.index(line) == listLen:
+                        # if exit is the last line in the file (no true/false)
+                        print(">exit")
+                        exit(returnCode)
+                        pass
+                    # if there is a True/False, don't want to do anything
+                elif line == "True":
                     # if True, build should be passing
                     # do nothing, just exit
                     exit(returnCode)
-                elif lineArgs[0] == "False":
+                elif line == "False":
                     # if False, build should be failing
                     # if exit code 1, make exit code 0
                     # if exit code 0, make exit code 1
-                    pass
+                    if returnCode == 0:
+                        returnCode = 1
+                    else:
+                        # means code is 1, needs to equal 0
+                        returnCode = 0
                 else:
                     print("Command not found")
                     returnCode = 1
