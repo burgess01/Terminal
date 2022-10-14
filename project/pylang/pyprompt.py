@@ -68,12 +68,12 @@ def main():
         mode = os.fstat(0).st_mode
         if stat.S_ISREG(mode):
             lineArgs = []
+            returnCode = 0
             for line in fileinput.input():
                 lineArgs.append(line.strip())
             for line in lineArgs:
                 # iterate through each line
                 # get command and feed into that function
-                returnCode = 0
                 if line == "pwd":
                     print(">pwd")
                     returnCode = pwd()
@@ -106,6 +106,7 @@ def main():
                     else:
                         # means code is 1, needs to equal 0
                         returnCode = 0
+                    exit(returnCode)
                 else:
                     print("Command not found")
                     returnCode = 1
