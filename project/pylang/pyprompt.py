@@ -112,6 +112,7 @@ def main():
                     returnCode = 1
                     exit(returnCode)
         else:
+            returnCode = 0
             # if in else this means it was ran in the command line
             stillRunning = True
             while stillRunning == True:
